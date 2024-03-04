@@ -22,19 +22,44 @@ function signIn(username, password) {
             // Handle login failures e.g., display a message to the user
         },
         newPasswordRequired: function(userAttributes, requiredAttributes) {
+            showNewPasswordForm();
             // User needs to set a new password
             console.log("New password required.");
+
+            submitNewPassword();
     
             // You may want to prompt the user to input their new password
             // For simplicity, let's assume you have a form for this
             // Assume newPassword is the new password the user inputs
             
-            var newPassword = prompt("Please enter your new password:");
+            // var newPassword = prompt("Please enter your new password:");
     
             // For security reasons, delete attributes you don't want to update
-            delete userAttributes.email_verified; // These attributes are not modifiable by the user
+            // delete userAttributes.email_verified; // These attributes are not modifiable by the user
             // Complete the new password challenge
-            cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this);
+            // cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this);
         }
     });
+
+    function showNewPasswordForm() {
+        document.getElementById('newPasswordRequiredForm').style.display = 'block';
+    }
+    
+    function submitNewPassword() {
+        var newPassword = document.getElementById('newPassword').value;
+        // Assume `userAttributes` is accessible or you have handled it as needed
+        cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, {
+            onSuccess: function(session) {
+                console.log("Password updated successfully.");
+                // Proceed with the application flow
+            },
+            onFailure: function(err) {
+                console.error(err.message || JSON.stringify(err));
+                // Handle errors (e.g., password policy not met)
+            }
+        });
+    }
+    
+    // Call showNewPasswordForm() in your newPasswordRequired callback
+    
 }
