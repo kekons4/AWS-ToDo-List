@@ -12,23 +12,24 @@
         <button type="submit">Login</button>
     </form>
 
-    <div id="newPasswordRequiredForm" style="display:none;">
+    <form id="newPasswordRequiredForm" style="display:none;">
         <input type="password" id="newPassword" placeholder="New Password" required>
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
         <button id="submitNewPassword">Submit New Password</button>
-    </div>    
+    </form>    
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/otpauth/VERSION/otpauth.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1045.0/aws-sdk.min.js"></script>
     <script src="https://unpkg.com/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
     <script src="../js/login.js"></script>
-    <script>
+    <!-- <script>
     document.getElementById('loginForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         signIn(username, password);
     });
-    </script>
+    </script> -->
     
 </body>
 </html>
